@@ -7,6 +7,8 @@
 
 #include <queue>
 #include <stack>
+#include <cmath>
+#include <iomanip>
 
 template <typename T>
 class BST {
@@ -290,6 +292,69 @@ public:
             }
             if(node->left != nullptr) {
                 s.push(node->left);
+            }
+        }
+    }
+
+    void prettyPrint(int setwValue = 5) {
+        if (root == nullptr) {
+            return;
+        }
+        int h = height();
+        int indent = 0;
+        for (int temp = 0; temp < h; temp++) {
+            indent = 2 * indent + 1;
+        }
+        std::queue<Node<T>*> q;
+        int pos = 0, cant = 0;
+
+        for (int temp = 0; temp < indent; ++temp) {
+            std::cout << std::setw(setwValue) << ' ';
+        }
+
+        q.push(root);
+        while (pos <= h) {
+            auto* nodo = q.front();
+            q.pop();
+            if (nodo == nullptr) {
+                std::cout << std::setw(setwValue) << ".";
+            }
+            else {
+                std::cout << std::setw(setwValue) << nodo->value;
+            }
+            for (int temp = 0; temp < indent*2+1; ++temp) {
+                std::cout << std::setw(setwValue) << ' ';
+            }
+            cant++;
+            if (cant == pow(2, pos)) {
+                cant = 0;
+                pos++;
+                std::cout << '\n';
+
+                indent = (indent - 1) / 2;
+                for (int temp = 0; temp < indent; ++temp) {
+                    std::cout << std::setw(setwValue) << ' ';
+                }
+            }
+            if (nodo == nullptr) {
+                q.push(nullptr);
+                q.push(nullptr);
+            }
+            else if (nodo->left && nodo->right) {
+                q.push(nodo->left);
+                q.push(nodo->right);
+            }
+            else if (nodo->left) {
+                q.push(nodo->left);
+                q.push(nullptr);
+            }
+            else if (nodo->right) {
+                q.push(nullptr);
+                q.push(nodo->right);
+            }
+            else {
+                q.push(nullptr);
+                q.push(nullptr);
             }
         }
     }
