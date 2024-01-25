@@ -14,9 +14,6 @@ void test_balance() {
         tree.insert(dist(rng));
     cout << boolalpha << tree.is_balanced() << '\n';
     cout << tree.size() << ' ' << tree.height() << '\n';
-//    auto v = tree.pre_order();
-//    for (const auto& el : v) cout << el << ' ';
-//    cout << '\n';
 }
 
 void test_auto_balance() {
@@ -141,34 +138,34 @@ void test_avl_rotations() {
     std::cout << "R rotation:\n";
     a.insert(8);
     a.insert(7);
-    a.autoPrettyPrint();
+    a.auto_pretty_print();
     std::cout << '\n';
     a.insert(6);
-    a.autoPrettyPrint();
+    a.auto_pretty_print();
     std::cout << '\n';
     std::cout << "L rotation:\n";
     a.insert(9);
-    a.autoPrettyPrint();
+    a.auto_pretty_print();
     std::cout << '\n';
     a.insert(10);
-    a.autoPrettyPrint();
+    a.auto_pretty_print();
     std::cout << '\n';
     std::cout << "RL rotation:\n";
     a.insert(12);
-    a.autoPrettyPrint();
+    a.auto_pretty_print();
     std::cout << '\n';
     a.insert(11);
-    a.autoPrettyPrint();
+    a.auto_pretty_print();
     std::cout << '\n';
     a.insert(4);
     std::cout << "LR rotation:\n";
-    a.autoPrettyPrint();
+    a.auto_pretty_print();
     std::cout << '\n';
     a.insert(5);
-    a.autoPrettyPrint();
+    a.auto_pretty_print();
     std::cout << '\n';
     a.insert(3);
-    a.autoPrettyPrint();
+    a.auto_pretty_print();
     std::cout << '\n';
 }
 
@@ -181,33 +178,53 @@ void test_avl_removes() {
     a.insert(4);
     a.insert(5);
     std::cout << "Remove Leaf:\n";
-    a.autoPrettyPrint();
+    a.auto_pretty_print();
     std::cout << '\n';
     a.erase(1);
-    a.autoPrettyPrint();
+    a.auto_pretty_print();
     std::cout << '\n';
 
     std::cout << "Remove node w 1 child:\n";
-    a.autoPrettyPrint();
+    a.auto_pretty_print();
     std::cout << '\n';
     a.erase(4);
-    a.autoPrettyPrint();
+    a.auto_pretty_print();
     std::cout << '\n';
 
     std::cout << "Remove node w 2 childs:\n";
     a.insert(8);
     a.insert(4);
-    a.autoPrettyPrint();
+    a.auto_pretty_print();
     std::cout << '\n';
     a.erase(5);
-    a.autoPrettyPrint();
+    a.auto_pretty_print();
     std::cout << '\n';
 
     std::cout << "Remove 2:\n";
     a.erase(2);
-    a.autoPrettyPrint();
+    a.auto_pretty_print();
     std::cout << '\n';
+
+    std::cout << "Remove everything:\n";
+    a.erase(3);
+    a.auto_pretty_print();
+    std::cout << '\n';
+    a.erase(4);
 }
+
+void test_avl_clear() {
+    avl<int> a;
+    a.insert(1);
+    a.insert(2);
+    a.insert(3);
+    a.insert(4);
+    a.insert(5);
+    std::cout << "Test clear\n";
+    a.clear();
+    a.auto_pretty_print();
+    std::cout << a.size() << '\n';
+}
+
 
 int main() {
     test_bst_prints();
@@ -215,6 +232,6 @@ int main() {
     test_bst_delete();
     test_avl_rotations();
     test_avl_removes();
-    
+    test_avl_clear();
     return 0;
 }

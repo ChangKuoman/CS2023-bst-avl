@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <queue>
+#include <stack>
 #include <vector>
 #include <iomanip>
 
@@ -126,11 +127,10 @@ class avl {
             cur->right->parent = left;
         }
 
-        if (cur == root) root = left;
-        else {
+        left->parent = cur->parent;
+        if (cur->parent) {
             if (cur->parent->left == cur) cur->parent->left = left;
             else cur->parent->right = left;
-            left->parent = cur->parent;
         }
 
         return left;
@@ -142,11 +142,10 @@ class avl {
             cur->left->parent = right;
         }
 
-        if (cur == root) root = right;
-        else {
+        right->parent = cur->parent;
+        if (cur->parent) {
             if (cur->parent->left == cur) cur->parent->left = right;
             else cur->parent->right = right;
-            right->parent = cur->parent;
         }
 
         return right;
@@ -168,6 +167,7 @@ class avl {
         return depth;
     }
     int _balance_factor(Node* cur) {
+        if (cur == nullptr) return 0;
         return _height(cur->left) - _height(cur->right);
     }
     bool _is_balanced(Node* cur) {
@@ -255,7 +255,28 @@ class avl {
     }
     // left child or right child is now root
     // rl subtree is the unbalance problem cause
-    void _rl() {
+    Node* _rl(Node* cur) {
+        Node* new_cur = cur->right->left;
+
+        cur->right->left = new_cur->right;
+        if (new_cur->right) new_cur->right->parent = cur->right;
+
+        new_cur->right = cur->right;
+        cur->right->parent = new_cur;
+
+        cur->right = new_cur->left;
+        if (new_cur->left) new_cur->left->parent = cur;
+
+        new_cur->parent = cur->parent;
+        if (cur->parent) {
+            if (cur == cur->parent->left) cur->parent->left = new_cur;
+            else cur->parent->right = new_cur;
+        }
+
+        new_cur->left = cur;
+        cur->parent = new_cur;
+
+        return new_cur;
     }
 
     Node* _balance(Node* cur) {
@@ -269,6 +290,27 @@ class avl {
             return _rr(cur);
         }
         return cur;
+    }
+
+    void _clear(Node* cur) {
+        if (cur == nullptr) return;
+
+        if (cur->parent) {
+            if (cur == cur->parent->left) cur->parent->left = nullptr;
+            else cur->parent->right = nullptr;
+        }
+        else root = nullptr;
+
+        std::stack<Node*> s;
+        s.push(cur);
+        while (!s.empty()) {
+            auto u = s.top();
+            s.pop();
+            if (u->left) s.push(u->left);
+            if (u->right) s.push(u->right);
+            --sz;
+            delete u;
+        }
     }
 
     void _pre_order(std::vector<T>& v, Node* cur) {
@@ -292,11 +334,11 @@ class avl {
         v.push_back(cur->data);
     }
 
-    int maxValueLenght(Node* node) {
+    int max_value_length(Node* node) {
         if (node != nullptr) {
             int val = std::to_string(node->data).length();
-            int val2 = std::max(val, maxValueLenght(node->left));
-            return std::max(val2, maxValueLenght(node->right));
+            int val2 = std::max(val, max_value_length(node->left));
+            return std::max(val2, max_value_length(node->right));
         }
         else {
             return 0;
@@ -305,18 +347,23 @@ class avl {
 
 public:
     avl() = default;
+    ~avl() {
+        delete root;
+    }
 
     bool empty() { return sz > 0; }
     size_t size() { return sz; }
+    int height() { return _height(root); }
 
+    iterator minimum() { return iterator(_minimum(root)); }
+    iterator maximum() { return iterator(_maximum(root)); }
     iterator begin() { return minimum(); }
     iterator end() { return iterator(); }
 
-    int height() { return _height(root); }
+
     bool is_balanced() {
         return _is_balanced(root);
     }
-
     void balance(Node* cur = nullptr) {
         if (cur == nullptr) cur = root;
         while (std::abs(_balance_factor(cur)) > 1) {
@@ -415,12 +462,15 @@ public:
                 }
                 else root = temp = nullptr;
 
+                if (aux == root) root = temp;
                 delete aux;
-                while (temp->parent) {
-                    temp = _balance(temp);
-                    temp = temp->parent;
+                if (temp) {
+                    while (temp->parent) {
+                        temp = _balance(temp);
+                        temp = temp->parent;
+                    }
+                    root = _balance(root);
                 }
-                root = _balance(root);
 
                 return true;
             }
@@ -446,8 +496,9 @@ public:
         return search(value) != end();
     }
 
-    iterator minimum() { return iterator(_minimum(root)); }
-    iterator maximum() { return iterator(_maximum(root)); }
+    void clear() {
+        _clear(root);
+    }
 
     std::vector<T> pre_order() {
         std::vector<T> v;
@@ -465,8 +516,7 @@ public:
         return v;
     }
 
-
-    void prettyPrint(int setwValue = 5, char nulo = '.') {
+    void pretty_print(int setwValue = 5, char nulo = '.') {
         if (root == nullptr) {
             return;
         }
@@ -529,11 +579,11 @@ public:
         }
     }
 
-    void autoPrettyPrint() {
+    void auto_pretty_print() {
         int max = 1;
         // go to every node and find max lenght of string(value)
-        max = maxValueLenght(root);
-        prettyPrint(max);
+        max = max_value_length(root);
+        pretty_print(max);
     }
 };
 
