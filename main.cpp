@@ -5,32 +5,6 @@
 
 using namespace std;
 
-void test_balance() {
-    random_device rd;
-    mt19937 rng (rd());
-    uniform_int_distribution dist(1,10000);
-    avl<int> tree;
-    for (int i = 0; i < 550; ++i)
-        tree.insert(dist(rng));
-    cout << boolalpha << tree.is_balanced() << '\n';
-    cout << tree.size() << ' ' << tree.height() << '\n';
-}
-
-void test_auto_balance() {
-    random_device rd;
-    mt19937 rng (rd());
-    uniform_int_distribution dist(1,1000);
-    avl<int> tree;
-    for (int i = 5; i > 0; --i) {
-        tree.insert(i);
-    }
-    cout << tree.size() << '\n';
-    auto v = tree.pre_order();
-    for (const auto& el : v) cout << el << ' ';
-    cout << '\n';
-    cout << boolalpha << tree.is_balanced() << '\n';
-}
-
 void test_bst_prints() {
     std::cout << "BST-TEST-1\n";
     random_device rd;
@@ -132,6 +106,32 @@ void test_bst_delete() {
     std::cout << '\n';
 }
 
+void test_avl_balance() { // must first comment out _balance() contents except for return statement
+    random_device rd;
+    mt19937 rng (rd());
+    uniform_int_distribution dist(1,10000);
+    avl<int> tree;
+    for (int i = 0; i < 800; ++i)
+        tree.insert(dist(rng));
+    cout << boolalpha << tree.is_balanced() << '\n';
+    tree.balance();
+    cout << tree.size() << ' ' << tree.height() << '\n';
+}
+
+void test_avl_auto_balance() {
+    random_device rd;
+    mt19937 rng (rd());
+    uniform_int_distribution dist(1,1000);
+    avl<int> tree;
+    for (int i = 700; i > 0; --i) {
+        tree.insert(i);
+    }
+    std::cout << "AVL-TEST-0:\n";
+    std::cout << "Auto balance:\n";
+    cout << tree.size() << ' ' << tree.height() << '\n';
+    cout << boolalpha << tree.is_balanced() << '\n';
+}
+
 void test_avl_rotations() {
     std::cout << "AVL-TEST-1:\n";
     avl<int> a;
@@ -230,6 +230,7 @@ int main() {
     test_bst_prints();
     test_bst_functions();
     test_bst_delete();
+    test_avl_auto_balance();
     test_avl_rotations();
     test_avl_removes();
     test_avl_clear();
