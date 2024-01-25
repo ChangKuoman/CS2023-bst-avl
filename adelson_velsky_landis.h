@@ -348,7 +348,7 @@ class avl {
 public:
     avl() = default;
     ~avl() {
-        delete root;
+        _clear(root);
     }
 
     bool empty() { return sz > 0; }
