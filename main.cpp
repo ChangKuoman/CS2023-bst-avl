@@ -34,8 +34,41 @@ void test_auto_balance() {
     cout << boolalpha << tree.is_balanced() << '\n';
 }
 
+void test_avl() {
+    avl<int> a;
+    a.insert(8);
+    a.insert(7);
+    a.autoPrettyPrint();
+    std::cout << '\n';
+    a.insert(6);
+    a.autoPrettyPrint();
+    std::cout << '\n';
+    a.insert(9);
+    a.autoPrettyPrint();
+    std::cout << '\n';
+    a.insert(10);
+    a.autoPrettyPrint();
+    std::cout << '\n';
+    a.insert(12);
+    a.autoPrettyPrint();
+    std::cout << '\n';
+    a.insert(11);
+    a.autoPrettyPrint();
+    std::cout << '\n';
+    a.insert(4);
+    a.autoPrettyPrint();
+    std::cout << '\n';
+    a.insert(5);
+    a.autoPrettyPrint();
+    std::cout << '\n';
+    a.insert(3);
+    a.autoPrettyPrint();
+    std::cout << '\n';
+}
+
 int main() {
-    BST<int> a;
+    test_avl();
+//    BST<int> a;
 //    a.insert(10);
 //    a.insert(8);
 //    a.insert(15);
@@ -102,15 +135,15 @@ int main() {
 //    a.clear();
 //    a.inOrder();
 //    std::cout << '\n';
-    a.insert(5);
-    a.insert(2);
-    a.insert(3);
-    a.insert(9);
-    a.insert(1);
-    a.insert(4);
-
-
-    a.autoPrettyPrint();
+//    a.insert(5);
+//    a.insert(2);
+//    a.insert(3);
+//    a.insert(9);
+//    a.insert(1);
+//    a.insert(4);
+//
+//
+//    a.autoPrettyPrint();
 //a.inOrder();
 //a.BFS();
     return 0;

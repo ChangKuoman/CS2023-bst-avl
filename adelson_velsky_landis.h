@@ -8,6 +8,7 @@
 #include <iostream>
 #include <queue>
 #include <vector>
+#include <iomanip>
 
 template<typename T>
 class avl {
@@ -291,6 +292,17 @@ class avl {
         v.push_back(cur->data);
     }
 
+    int maxValueLenght(Node* node) {
+        if (node != nullptr) {
+            int val = std::to_string(node->data).length();
+            int val2 = std::max(val, maxValueLenght(node->left));
+            return std::max(val2, maxValueLenght(node->right));
+        }
+        else {
+            return 0;
+        }
+    }
+
 public:
     avl() = default;
 
@@ -451,6 +463,77 @@ public:
         std::vector<T> v;
         _post_order(v, root);
         return v;
+    }
+
+
+    void prettyPrint(int setwValue = 5, char nulo = '.') {
+        if (root == nullptr) {
+            return;
+        }
+        int h = height();
+        int indent = 0;
+        for (int temp = 0; temp < h; temp++) {
+            indent = 2 * indent + 1;
+        }
+        std::queue<Node*> q;
+        int pos = 0, cant = 0;
+
+        for (int temp = 0; temp < indent; ++temp) {
+            std::cout << std::setw(setwValue) << ' ';
+        }
+
+        q.push(root);
+        while (pos <= h) {
+            auto* nodo = q.front();
+            q.pop();
+            if (nodo == nullptr) {
+                std::cout << std::setw(setwValue) << nulo;
+            }
+            else {
+                std::cout << std::setw(setwValue) << nodo->data;
+            }
+            for (int temp = 0; temp < indent*2+1; ++temp) {
+                std::cout << std::setw(setwValue) << ' ';
+            }
+            cant++;
+            if (cant == pow(2, pos)) {
+                cant = 0;
+                pos++;
+                std::cout << '\n';
+
+                indent = (indent - 1) / 2;
+                for (int temp = 0; temp < indent; ++temp) {
+                    std::cout << std::setw(setwValue) << ' ';
+                }
+            }
+            if (nodo == nullptr) {
+                q.push(nullptr);
+                q.push(nullptr);
+            }
+            else if (nodo->left && nodo->right) {
+                q.push(nodo->left);
+                q.push(nodo->right);
+            }
+            else if (nodo->left) {
+                q.push(nodo->left);
+                q.push(nullptr);
+            }
+            else if (nodo->right) {
+                q.push(nullptr);
+                q.push(nodo->right);
+            }
+            else {
+                q.push(nullptr);
+                q.push(nullptr);
+            }
+        }
+    }
+
+    void autoPrettyPrint() {
+        int max = 1;
+        // go to every node and find max lenght of string(value)
+        max = maxValueLenght(root);
+        prettyPrint(max);
     }
 };
 
