@@ -34,44 +34,12 @@ void test_auto_balance() {
     cout << boolalpha << tree.is_balanced() << '\n';
 }
 
-void test_avl() {
-    avl<int> a;
-    a.insert(8);
-    a.insert(7);
-    a.autoPrettyPrint();
-    std::cout << '\n';
-    a.insert(6);
-    a.autoPrettyPrint();
-    std::cout << '\n';
-    a.insert(9);
-    a.autoPrettyPrint();
-    std::cout << '\n';
-    a.insert(10);
-    a.autoPrettyPrint();
-    std::cout << '\n';
-    a.insert(12);
-    a.autoPrettyPrint();
-    std::cout << '\n';
-    a.insert(11);
-    a.autoPrettyPrint();
-    std::cout << '\n';
-    a.insert(4);
-    a.autoPrettyPrint();
-    std::cout << '\n';
-    a.insert(5);
-    a.autoPrettyPrint();
-    std::cout << '\n';
-    a.insert(3);
-    a.autoPrettyPrint();
-    std::cout << '\n';
-}
-
-void test_bst_order() {
+void test_bst_prints() {
     std::cout << "BST-TEST-1\n";
     random_device rd;
     mt19937 rng (rd());
     uniform_int_distribution dist(1,1000);
-    uniform_int_distribution dist2(5,20);
+    uniform_int_distribution dist2(5,10);
     BST<int> tree;
     for (int i = 0; i < dist2(rng); ++i)
         tree.insert(dist(rng));
@@ -84,6 +52,13 @@ void test_bst_order() {
     std::cout << "Post Order:\n";
     tree.postOrder();
     std::cout << '\n';
+    std::cout << "BFS:\n";
+    tree.BFS();
+    std::cout << '\n';
+    std::cout << "DFS:\n";
+    tree.DFS();
+    std::cout << '\n';
+
     std::cout << "Pretty Print:\n";
     tree.autoPrettyPrint();
     std::cout << '\n';
@@ -94,7 +69,7 @@ void test_bst_functions() {
     random_device rd;
     mt19937 rng (rd());
     uniform_int_distribution dist(1,1000);
-    uniform_int_distribution dist2(5,20);
+    uniform_int_distribution dist2(5,10);
     BST<int> tree;
     for (int i = 0; i < dist2(rng); ++i)
         tree.insert(dist(rng));
@@ -119,58 +94,89 @@ void test_bst_functions() {
     std::cout << tree.size() << '\n';
 }
 
+void test_bst_delete() {
+    std::cout << "BST-TEST-3\n";
+    BST<int> tree;
+    tree.insert(5);
+    tree.insert(8);
+    tree.insert(9);
+
+    std::cout << "Delete Test Leave n 1 child:\n";
+    tree.autoPrettyPrint();
+    std::cout << '\n';
+    tree.remove(8);
+    tree.autoPrettyPrint();
+    std::cout << '\n';
+    tree.remove(9);
+    tree.autoPrettyPrint();
+    std::cout << '\n';
+
+    tree.insert(8);
+    tree.insert(9);
+    tree.insert(7);
+    std::cout << "Delete Test 2 children:\n";
+    tree.autoPrettyPrint();
+    std::cout << '\n';
+    tree.remove(8);
+    tree.autoPrettyPrint();
+    std::cout << '\n';
+
+    std::cout << "Clear:\n";
+    tree.clear();
+    tree.autoPrettyPrint();
+    std::cout << '\n';
+
+    std::cout << "Delete Test root:\n";
+    tree.insert(10);
+    tree.autoPrettyPrint();
+    std::cout << '\n';
+    tree.remove(10);
+    tree.autoPrettyPrint();
+    std::cout << '\n';
+}
+
+void test_avl_rotations() {
+    std::cout << "AVL-TEST-1:\n";
+    avl<int> a;
+    std::cout << "R rotation:\n";
+    a.insert(8);
+    a.insert(7);
+    a.autoPrettyPrint();
+    std::cout << '\n';
+    a.insert(6);
+    a.autoPrettyPrint();
+    std::cout << '\n';
+    std::cout << "L rotation:\n";
+    a.insert(9);
+    a.autoPrettyPrint();
+    std::cout << '\n';
+    a.insert(10);
+    a.autoPrettyPrint();
+    std::cout << '\n';
+    std::cout << "RL rotation:\n";
+    a.insert(12);
+    a.autoPrettyPrint();
+    std::cout << '\n';
+    a.insert(11);
+    a.autoPrettyPrint();
+    std::cout << '\n';
+    a.insert(4);
+    std::cout << "LR rotation:\n";
+    a.autoPrettyPrint();
+    std::cout << '\n';
+    a.insert(5);
+    a.autoPrettyPrint();
+    std::cout << '\n';
+    a.insert(3);
+    a.autoPrettyPrint();
+    std::cout << '\n';
+}
+
 int main() {
-//    test_bst_order();
+    test_bst_prints();
     test_bst_functions();
-//    test_avl();
+    test_bst_delete();
+    test_avl_rotations();
 
-
-
-
-//    std::cout << "Delete Test Leave n 1 child:\n";
-//    a.inOrder();
-//    std::cout << '\n';
-//    a.remove(16);
-//    a.inOrder();
-//    std::cout << '\n';
-//    a.remove(17);
-//    a.inOrder();
-//    std::cout << '\n';
-//
-//    std::cout << "Delete Test 2 children:\n";
-//    a.remove(10);
-//    a.inOrder();
-//    std::cout << '\n';
-
-//    std::cout << "Delete Test root:\n";
-//    BST<int> b;
-//    b.insert(10);
-//    b.remove(10);
-//    b.inOrder();
-//    std::cout << '\n';
-//
-//    a.insert(5);
-//    std::cout << "BFS:\n";
-//    a.BFS();
-//    std::cout << '\n';
-//    std::cout << "DFS:\n";
-//    a.DFS();
-//    std::cout << '\n';
-//
-//    std::cout << "Clear:\n";
-//    a.clear();
-//    a.inOrder();
-//    std::cout << '\n';
-//    a.insert(5);
-//    a.insert(2);
-//    a.insert(3);
-//    a.insert(9);
-//    a.insert(1);
-//    a.insert(4);
-//
-//
-//    a.autoPrettyPrint();
-//a.inOrder();
-//a.BFS();
     return 0;
 }
