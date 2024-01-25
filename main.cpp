@@ -67,6 +67,7 @@ void test_avl() {
 }
 
 void test_bst_order() {
+    std::cout << "BST-TEST-1\n";
     random_device rd;
     mt19937 rng (rd());
     uniform_int_distribution dist(1,1000);
@@ -88,28 +89,43 @@ void test_bst_order() {
     std::cout << '\n';
 }
 
+void test_bst_functions() {
+    std::cout << "BST-TEST-2\n";
+    random_device rd;
+    mt19937 rng (rd());
+    uniform_int_distribution dist(1,1000);
+    uniform_int_distribution dist2(5,20);
+    BST<int> tree;
+    for (int i = 0; i < dist2(rng); ++i)
+        tree.insert(dist(rng));
+    tree.insert(1);
+    tree.autoPrettyPrint();
+
+    std::cout << "Contains:\n";
+    std::cout << std::boolalpha << tree.contains(1) << '\n';
+    std::cout << std::boolalpha << tree.contains(1001) << '\n';
+
+    std::cout << "Height:\n";
+    std::cout << tree.height() << '\n';
+
+    std::cout << "Min and Max Value:\n";
+    std::cout << tree.minValue() << '\n';
+    std::cout << tree.maxValue() << '\n';
+
+    std::cout << "is Balanced:\n";
+    std::cout << std::boolalpha << tree.isBalanced() << '\n';
+
+    std::cout << "Size:\n";
+    std::cout << tree.size() << '\n';
+}
+
 int main() {
-    test_bst_order();
-    
+//    test_bst_order();
+    test_bst_functions();
 //    test_avl();
 
-//    std::cout << '\n';
 
-//    std::cout << "Contains:\n";
-//    std::cout << std::boolalpha << a.contains(10) << '\n';
-//    std::cout << std::boolalpha << a.contains(20) << '\n';
-//
-//    std::cout << "Height:\n";
-//    std::cout << a.height() << '\n';
-//
-//    std::cout << "Min and Max Value:\n";
-//    std::cout << a.minValue() << '\n';
-//    std::cout << a.maxValue() << '\n';
 
-//    std::cout << "is Balanced:\n";
-//    std::cout << std::boolalpha << a.isBalanced() << '\n';
-//    std::cout << "Size:\n";
-//    std::cout << a.size() << '\n';
 
 //    std::cout << "Delete Test Leave n 1 child:\n";
 //    a.inOrder();

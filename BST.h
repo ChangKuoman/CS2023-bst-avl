@@ -70,10 +70,10 @@ private:
             return true;
         }
         else if (node->value < x) {
-            return contains(x, node->left);
+            return contains(x, node->right);
         }
         else if (node->value > x) {
-            return contains(x, node->right);
+            return contains(x, node->left);
         }
     }
 
