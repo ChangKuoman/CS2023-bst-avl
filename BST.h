@@ -180,6 +180,18 @@ private:
             node = nullptr;
         }
     }
+
+    int maxValueLenght(Node<T>* node) {
+        if (node != nullptr) {
+            int val = std::to_string(node->value).length();
+            int val2 = std::max(val, maxValueLenght(node->left));
+            return std::max(val2, maxValueLenght(node->right));
+        }
+        else {
+            return 0;
+        }
+    }
+
 public:
     BST()=default;
     ~BST() {
@@ -359,21 +371,10 @@ public:
         }
     }
 
-    int maxValue(Node<T>* node) {
-        if (node != nullptr) {
-            int val = std::to_string(node->value).length();
-            int val2 = std::max(val, maxValue(node->left));
-            return std::max(val2, maxValue(node->right));
-        }
-        else {
-          return 0;
-        }
-    }
-
     void autoPrettyPrint() {
         int max = 1;
         // go to every node and find max lenght of string(value)
-        max = maxValue(root);
+        max = maxValueLenght(root);
         prettyPrint(max);
     }
 };
