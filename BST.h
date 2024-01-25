@@ -88,9 +88,9 @@ private:
         if (node == nullptr) {
             return true;
         }
-        int bf = balanceFactor(node->left) - balanceFactor(node->right);
+        int bf = balanceFactor(node);
         if (bf == -1 || bf == 0 || bf == 1) {
-            return true;
+            return true && isBalanced(node->left) && isBalanced(node->right);
         }
         return false;
     }
