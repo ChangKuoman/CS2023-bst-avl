@@ -48,8 +48,8 @@ private:
 
     void postOrder(Node<T>* node) {
         if (node != nullptr) {
-            inOrder(node->left);
-            inOrder(node->right);
+            postOrder(node->left);
+            postOrder(node->right);
             std::cout << node->value << " ";
         }
     }
@@ -57,8 +57,8 @@ private:
     void preOrder(Node<T>* node) {
         if (node != nullptr) {
             std::cout << node->value << " ";
-            inOrder(node->left);
-            inOrder(node->right);
+            preOrder(node->left);
+            preOrder(node->right);
         }
     }
 

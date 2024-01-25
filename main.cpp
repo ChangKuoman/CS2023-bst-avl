@@ -66,23 +66,33 @@ void test_avl() {
     std::cout << '\n';
 }
 
-int main() {
-    test_avl();
-//    BST<int> a;
-//    a.insert(10);
-//    a.insert(8);
-//    a.insert(15);
-//    a.insert(16);
-//    a.insert(17);
+void test_bst_order() {
+    random_device rd;
+    mt19937 rng (rd());
+    uniform_int_distribution dist(1,1000);
+    uniform_int_distribution dist2(5,20);
+    BST<int> tree;
+    for (int i = 0; i < dist2(rng); ++i)
+        tree.insert(dist(rng));
+    std::cout << "In Order:\n";
+    tree.inOrder();
+    std::cout << '\n';
+    std::cout << "Pre Order:\n";
+    tree.preOrder();
+    std::cout << '\n';
+    std::cout << "Post Order:\n";
+    tree.postOrder();
+    std::cout << '\n';
+    std::cout << "Pretty Print:\n";
+    tree.autoPrettyPrint();
+    std::cout << '\n';
+}
 
-//    std::cout << "In Order:\n";
-//    a.inOrder();
-//    std::cout << '\n';
-//    std::cout << "Pre Order:\n";
-//    a.preOrder();
-//    std::cout << '\n';
-//    std::cout << "Post Order:\n";
-//    a.postOrder();
+int main() {
+    test_bst_order();
+    
+//    test_avl();
+
 //    std::cout << '\n';
 
 //    std::cout << "Contains:\n";
