@@ -172,11 +172,49 @@ void test_avl_rotations() {
     std::cout << '\n';
 }
 
+void test_avl_removes() {
+    std::cout << "AVL-TEST-2:\n";
+    avl<int> a;
+    a.insert(1);
+    a.insert(2);
+    a.insert(3);
+    a.insert(4);
+    a.insert(5);
+    std::cout << "Remove Leaf:\n";
+    a.autoPrettyPrint();
+    std::cout << '\n';
+    a.erase(1);
+    a.autoPrettyPrint();
+    std::cout << '\n';
+
+    std::cout << "Remove node w 1 child:\n";
+    a.autoPrettyPrint();
+    std::cout << '\n';
+    a.erase(4);
+    a.autoPrettyPrint();
+    std::cout << '\n';
+
+    std::cout << "Remove node w 2 childs:\n";
+    a.insert(8);
+    a.insert(4);
+    a.autoPrettyPrint();
+    std::cout << '\n';
+    a.erase(5);
+    a.autoPrettyPrint();
+    std::cout << '\n';
+
+    std::cout << "Remove 2:\n";
+    a.erase(2);
+    a.autoPrettyPrint();
+    std::cout << '\n';
+}
+
 int main() {
     test_bst_prints();
     test_bst_functions();
     test_bst_delete();
     test_avl_rotations();
-
+    test_avl_removes();
+    
     return 0;
 }
