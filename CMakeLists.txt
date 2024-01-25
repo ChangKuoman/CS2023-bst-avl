@@ -3,4 +3,5 @@ project(CS2023_bst_avl)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(CS2023_bst_avl main.cpp)
+add_executable(CS2023_bst_avl main.cpp
+        adelson_velsky_landis.h)

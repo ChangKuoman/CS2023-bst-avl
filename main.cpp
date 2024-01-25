@@ -1,5 +1,38 @@
 #include <iostream>
+#include <random>
+#include "adelson_velsky_landis.h"
 #include "BST.h"
+
+using namespace std;
+
+void test_balance() {
+    random_device rd;
+    mt19937 rng (rd());
+    uniform_int_distribution dist(1,10000);
+    avl<int> tree;
+    for (int i = 0; i < 550; ++i)
+        tree.insert(dist(rng));
+    cout << boolalpha << tree.is_balanced() << '\n';
+    cout << tree.size() << ' ' << tree.height() << '\n';
+//    auto v = tree.pre_order();
+//    for (const auto& el : v) cout << el << ' ';
+//    cout << '\n';
+}
+
+void test_auto_balance() {
+    random_device rd;
+    mt19937 rng (rd());
+    uniform_int_distribution dist(1,1000);
+    avl<int> tree;
+    for (int i = 5; i > 0; --i) {
+        tree.insert(i);
+    }
+    cout << tree.size() << '\n';
+    auto v = tree.pre_order();
+    for (const auto& el : v) cout << el << ' ';
+    cout << '\n';
+    cout << boolalpha << tree.is_balanced() << '\n';
+}
 
 int main() {
     BST<int> a;
