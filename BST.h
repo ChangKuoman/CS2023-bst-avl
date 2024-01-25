@@ -296,7 +296,7 @@ public:
         }
     }
 
-    void prettyPrint(int setwValue = 5) {
+    void prettyPrint(int setwValue = 5, char nulo = '.') {
         if (root == nullptr) {
             return;
         }
@@ -317,7 +317,7 @@ public:
             auto* nodo = q.front();
             q.pop();
             if (nodo == nullptr) {
-                std::cout << std::setw(setwValue) << ".";
+                std::cout << std::setw(setwValue) << nulo;
             }
             else {
                 std::cout << std::setw(setwValue) << nodo->value;
@@ -357,6 +357,24 @@ public:
                 q.push(nullptr);
             }
         }
+    }
+
+    int maxValue(Node<T>* node) {
+        if (node != nullptr) {
+            int val = std::to_string(node->value).length();
+            int val2 = std::max(val, maxValue(node->left));
+            return std::max(val2, maxValue(node->right));
+        }
+        else {
+          return 0;
+        }
+    }
+
+    void autoPrettyPrint() {
+        int max = 1;
+        // go to every node and find max lenght of string(value)
+        max = maxValue(root);
+        prettyPrint(max);
     }
 };
 

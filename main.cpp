@@ -69,14 +69,15 @@ int main() {
 //    a.clear();
 //    a.inOrder();
 //    std::cout << '\n';
-    a.insert(1);
-    a.insert(2);
-    a.insert(3);
-    a.insert(4);
     a.insert(5);
+    a.insert(2);
+    a.insert(300);
+    a.insert(9);
+    a.insert(1054);
+    a.insert(4);
 
 
-    a.prettyPrint(3);
+    a.autoPrettyPrint();
 //a.inOrder();
 //a.BFS();
     return 0;
