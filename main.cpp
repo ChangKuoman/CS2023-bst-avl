@@ -36,11 +36,11 @@ void test_auto_balance() {
 
 int main() {
     BST<int> a;
-    a.insert(10);
-    a.insert(8);
-    a.insert(15);
-    a.insert(16);
-    a.insert(17);
+//    a.insert(10);
+//    a.insert(8);
+//    a.insert(15);
+//    a.insert(16);
+//    a.insert(17);
 
 //    std::cout << "In Order:\n";
 //    a.inOrder();
@@ -83,25 +83,35 @@ int main() {
 //    a.inOrder();
 //    std::cout << '\n';
 
-    std::cout << "Delete Test root:\n";
-    BST<int> b;
-    b.insert(10);
-    b.remove(10);
-    b.inOrder();
-    std::cout << '\n';
-
+//    std::cout << "Delete Test root:\n";
+//    BST<int> b;
+//    b.insert(10);
+//    b.remove(10);
+//    b.inOrder();
+//    std::cout << '\n';
+//
+//    a.insert(5);
+//    std::cout << "BFS:\n";
+//    a.BFS();
+//    std::cout << '\n';
+//    std::cout << "DFS:\n";
+//    a.DFS();
+//    std::cout << '\n';
+//
+//    std::cout << "Clear:\n";
+//    a.clear();
+//    a.inOrder();
+//    std::cout << '\n';
     a.insert(5);
-    std::cout << "BFS:\n";
-    a.BFS();
-    std::cout << '\n';
-    std::cout << "DFS:\n";
-    a.DFS();
-    std::cout << '\n';
+    a.insert(2);
+    a.insert(3);
+    a.insert(9);
+    a.insert(1);
+    a.insert(4);
 
-    std::cout << "Clear:\n";
-    a.clear();
-    a.inOrder();
-    std::cout << '\n';
 
+    a.autoPrettyPrint();
+//a.inOrder();
+//a.BFS();
     return 0;
 }
